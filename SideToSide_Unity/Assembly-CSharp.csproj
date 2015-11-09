@@ -52,7 +52,6 @@
      <Compile Include="Assets\Scripts\Follower.cs" />
      <Compile Include="Assets\Scripts\GoalController.cs" />
      <Compile Include="Assets\Scripts\GoalZone.cs" />
-     <Compile Include="Assets\Scripts\LevelGen\LevelGenPiece.cs" />
      <Compile Include="Assets\Scripts\LevelGen\LevelGenerator.cs" />
      <Compile Include="Assets\Scripts\LevelHolder.cs" />
      <Compile Include="Assets\Scripts\LevelPieces\LevelPiece.cs" />
@@ -61,6 +60,7 @@
      <Compile Include="Assets\Scripts\Pacer\Pacer.cs" />
      <Compile Include="Assets\Scripts\Pacer\PacerTarget.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
+     <Compile Include="Assets\Scripts\RowMover.cs" />
      <Compile Include="Assets\Scripts\Soul.cs" />
      <Compile Include="Assets\Scripts\UIController.cs" />
  <Reference Include="UnityEngine.UI">

@@ -14,7 +14,6 @@ public class Pacer : MonoBehaviour
 		currentTarget = targetOne;
 	}
 
-	// Update is called once per frame
 	void Update ()
 	{
 		Vector3 targetDir = (this.transform.position - currentTarget.transform.position).normalized;

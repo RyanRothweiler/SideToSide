@@ -3,15 +3,20 @@ using System.Collections;
 
 public class LevelPiece : MonoBehaviour
 {
-	public void OnCollisionEnter2D(Collision2D coll)
+
+	public bool isDouble;
+
+	public virtual void PlacePiece()
 	{
-		if (coll.gameObject.name == "LevelKiller")
-		{
-			Destroy(this.gameObject);
-		}
+
 	}
 
-	public virtual void GenPlaced()
+	public virtual void PlacePiece(GameObject holder)
+	{
+		
+	}
+
+	public virtual void Remove()
 	{
 
 	}

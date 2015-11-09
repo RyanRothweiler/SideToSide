@@ -7,78 +7,132 @@ public class LevelGenerator : MonoBehaviour
 
 	public static LevelGenerator instance;
 
-	public GameObject levelHolder;
-	public GameObject levelGenLocation;
-	public List<LevelGenPiece> levelPieces = new List<LevelGenPiece>();
+	public List<GameObject> rowLocs = new List<GameObject>();
+	public List<GameObject> rowHolders = new List<GameObject>();
+	private List<GameObject> pieceLibrary = new List<GameObject>();
 
-	public GameObject sideWallOne;
-	public GameObject sideWallTwo;
-
-	private bool genWaiting = false;
+	private List<Vector3> originalPositions = new List<Vector3>();
 
 	void Start ()
 	{
 		instance = this;
 
+		foreach (Transform child in transform)
+		{
+			if (child.gameObject.activeInHierarchy)
+			{
+				pieceLibrary.Add(child.gameObject);
+			}
+		}
+
+		foreach (GameObject holder in rowHolders)
+		{
+			originalPositions.Add(holder.transform.position);
+		}
+
+		GenerateBoard();
+	}
+
+	public void GenerateBoard()
+	{
+
 		for (int index = 0;
-		     index < 15;
+		     index < rowHolders.Count;
 		     index++)
 		{
-			PlacePiece(levelHolder.transform.position);
+			rowHolders[index].transform.position = originalPositions[index];
 		}
-	}
 
-	void Update ()
-	{
-		if (!genWaiting)
+		for (int index = 0;
+		     index < rowHolders.Count;
+		     index++)
 		{
-			PlacePiece(levelGenLocation.transform.position);
-			genWaiting = true;
-			StartCoroutine(GenWait());
-		}
-	}
-
-	// TODO make this use the piece ramdon weights
-	public void PlacePiece(Vector3 centerLoc)
-	{
-		bool piecePlaced = false;
-		while (!piecePlaced)
-		{
-			Vector3 newPosRange = new Vector3(5.5f, 5.5f, 0);
-			Vector3 randomOffset = new Vector3(Random.Range(-newPosRange.x, newPosRange.x), Random.Range(-newPosRange.x, newPosRange.x), 0);
-			Vector3 newPos = randomOffset + centerLoc;
-
-			LevelGenPiece newPiece = levelPieces[Random.Range(0, levelPieces.Count)];
-			if (newPiece.use)
+			foreach (Transform child in rowHolders[index].transform)
 			{
-				GameObject newObj = Instantiate(newPiece.piece);
-				newObj.transform.position = newPos;
-				newObj.transform.Rotate(Vector3.forward * Random.Range(0, 360));
+				Destroy(child.gameObject);
+			}
+		}
 
-				newObj.GetComponent<LevelPiece>().GenPlaced();
-				newObj.transform.parent = levelHolder.transform;
+		int piecesGenerated = 5;
+		float tileWidth = 2.88f;
+		for (int colIndex = 0;
+		     colIndex < 5;
+		     colIndex++)
+		{
 
-				piecePlaced = true;
-				if (newObj.GetComponent<BoxCollider2D>() != null)
+			int flipper = colIndex % 2;
+			if (flipper == 0)
+			{
+				flipper = 1;
+			}
+			else
+			{
+				flipper = -1;
+			}
+
+			Vector3 currentPos = rowLocs[colIndex].transform.position;
+			for (int pieceNum = 0;
+			     pieceNum < piecesGenerated;
+			     pieceNum++)
+			{
+				int pieceIndex = Random.Range(0, pieceLibrary.Count);
+				GameObject newPiece = GameObject.Instantiate(pieceLibrary[pieceIndex]) as GameObject;
+
+				if (flipper == 1)
 				{
-					if (sideWallOne.GetComponent<BoxCollider2D>().bounds.Intersects(newObj.GetComponent<BoxCollider2D>().bounds) ||
-					    sideWallTwo.GetComponent<BoxCollider2D>().bounds.Intersects(newObj.GetComponent<BoxCollider2D>().bounds))
+					if (newPiece.GetComponent<LevelPiece>().isDouble)
 					{
-						piecePlaced = false;
+						currentPos -= new Vector3(0, tileWidth * flipper * 2, 0);
+					}
+					else
+					{
+						currentPos -= new Vector3(0, tileWidth * flipper, 0);
+					}
+					newPiece.transform.position = currentPos;
+				}
+				else
+				{
+					newPiece.transform.position = currentPos;
+					if (newPiece.GetComponent<LevelPiece>().isDouble)
+					{
+						currentPos -= new Vector3(0, tileWidth * flipper * 2, 0);
+					}
+					else
+					{
+						currentPos -= new Vector3(0, tileWidth * flipper, 0);
 					}
 				}
 
-				if (!piecePlaced)
+				newPiece.transform.parent = rowHolders[colIndex].transform;
+
+				if (newPiece.GetComponent<SawPiece>())
 				{
-					Destroy(newObj);
+					newPiece.GetComponent<LevelPiece>().PlacePiece(rowHolders[colIndex]);
+				}
+				else
+				{
+					newPiece.GetComponent<LevelPiece>().PlacePiece();
 				}
 			}
 		}
-	}
 
-	public IEnumerator GenWait()
-	{
-		yield return new WaitForSeconds(1f);
-		genWaiting = false;
+		for (int colIndex = 0;
+		     colIndex < rowLocs.Count;
+		     colIndex++)
+		{
+
+			int flipper = colIndex % 2;
+			if (flipper == 0)
+			{
+				flipper = 1;
+			}
+			else
+			{
+				flipper = -1;
+			}
+
+			rowHolders[colIndex].transform.position = rowHolders[colIndex].transform.position +
+			        new Vector3(0, tileWidth * flipper * (piecesGenerated + 2), 0);
+		}
 	}
 }

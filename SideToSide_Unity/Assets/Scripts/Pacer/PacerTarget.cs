@@ -4,7 +4,6 @@ using System.Collections;
 public class PacerTarget : MonoBehaviour
 {
 	
-	// TODO need to parent this to something
 
 	public void OnDrawGizmos()
 	{

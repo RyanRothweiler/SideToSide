@@ -22,6 +22,8 @@ public class GoalController : MonoBehaviour
 	{
 		if (touched == currentTarget)
 		{
+			LevelGenerator.instance.GenerateBoard();
+			
 			touchCount++;
 			if (currentTarget == targetLeft)
 			{

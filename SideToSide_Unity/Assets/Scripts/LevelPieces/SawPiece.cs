@@ -1,19 +1,27 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class SawPiece : LevelPiece
 {
 
-	public GameObject levelHolder;
+	public List<GameObject> saws = new List<GameObject>();
 
-	public override void GenPlaced()
+	public override void PlacePiece(GameObject holder)
 	{
-		this.GetComponent<Pacer>().targetOne.transform.position = this.transform.position;
-		this.GetComponent<Pacer>().targetOne.transform.parent = levelHolder.transform;
-
-		Vector3 randomOffset = new Vector3(Random.Range(-5, 5), Random.Range(-5, 5), 0);
-		this.GetComponent<Pacer>().targetTwo.transform.position = this.transform.position + randomOffset;
-		this.GetComponent<Pacer>().targetTwo.transform.parent = levelHolder.transform;
+		foreach (GameObject saw in saws)
+		{
+			saw.GetComponent<Pacer>().targetOne.transform.parent = holder.transform;
+			saw.GetComponent<Pacer>().targetTwo.transform.parent = holder.transform;
+		}
 	}
 
+	public override void Remove()
+	{
+		foreach (GameObject saw in saws)
+		{
+			Destroy(saw.GetComponent<Pacer>().targetOne);
+			Destroy(saw.GetComponent<Pacer>().targetTwo);
+		}
+	}
 }
