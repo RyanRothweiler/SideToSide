@@ -7,11 +7,14 @@ public class LevelGenerator : MonoBehaviour
 
 	public static LevelGenerator instance;
 
-	public List<GameObject> rowLocs = new List<GameObject>();
-	public List<GameObject> rowHolders = new List<GameObject>();
-	private List<GameObject> pieceLibrary = new List<GameObject>();
+	public GameObject gridTopLeft;
 
-	private List<Vector3> originalPositions = new List<Vector3>();
+	public float gridCellSize;
+	public int gridSizeX; // 5
+	public int gridSizeY; // 4
+
+	public bool[,] gridTaken;
+	private List<GameObject> pieceLibrary = new List<GameObject>();
 
 	void Start ()
 	{
@@ -25,114 +28,72 @@ public class LevelGenerator : MonoBehaviour
 			}
 		}
 
-		foreach (GameObject holder in rowHolders)
-		{
-			originalPositions.Add(holder.transform.position);
-		}
 
 		GenerateBoard();
 	}
 
 	public void GenerateBoard()
 	{
-
-		for (int index = 0;
-		     index < rowHolders.Count;
-		     index++)
+		gridTaken = new bool[gridSizeX, gridSizeY];
+		foreach (Transform child in gridTopLeft.transform)
 		{
-			rowHolders[index].transform.position = originalPositions[index];
+			Destroy(child.gameObject);
 		}
 
-		for (int index = 0;
-		     index < rowHolders.Count;
-		     index++)
+		for (int x = 0;
+		     x < gridSizeX;
+		     x++)
 		{
-			foreach (Transform child in rowHolders[index].transform)
+			for (int y = 0;
+			     y < gridSizeY;
+			     y++)
 			{
-				Destroy(child.gameObject);
-			}
-		}
-
-		int piecesGenerated = 5;
-		float tileWidth = 2.88f;
-		for (int colIndex = 0;
-		     colIndex < 5;
-		     colIndex++)
-		{
-
-			int flipper = colIndex % 2;
-			if (flipper == 0)
-			{
-				flipper = 1;
-			}
-			else
-			{
-				flipper = -1;
-			}
-
-			Vector3 currentPos = rowLocs[colIndex].transform.position;
-			for (int pieceNum = 0;
-			     pieceNum < piecesGenerated;
-			     pieceNum++)
-			{
-				int pieceIndex = Random.Range(0, pieceLibrary.Count);
-				GameObject newPiece = GameObject.Instantiate(pieceLibrary[pieceIndex]) as GameObject;
-
-				if (flipper == 1)
+				if (!gridTaken[x, y])
 				{
-					if (newPiece.GetComponent<LevelPiece>().isDouble)
+					bool piecePlaced = false;
+					while (!piecePlaced)
 					{
-						currentPos -= new Vector3(0, tileWidth * flipper * 2, 0);
-					}
-					else
-					{
-						currentPos -= new Vector3(0, tileWidth * flipper, 0);
-					}
-					newPiece.transform.position = currentPos;
-				}
-				else
-				{
-					newPiece.transform.position = currentPos;
-					if (newPiece.GetComponent<LevelPiece>().isDouble)
-					{
-						currentPos -= new Vector3(0, tileWidth * flipper * 2, 0);
-					}
-					else
-					{
-						currentPos -= new Vector3(0, tileWidth * flipper, 0);
+						LevelPiece pieceTesting = pieceLibrary[Random.Range(0, pieceLibrary.Count)].GetComponent<LevelPiece>();
+
+						bool spaceOpen = true;
+
+						foreach (Vector2 newTaken in pieceTesting.gridsTakenOffset)
+						{
+							int xTaken = x + (int)newTaken.x;
+							int yTaken = y + (int)newTaken.y;
+
+							bool outsideArena = !(xTaken >= 0 && xTaken < gridSizeX &&
+							                      yTaken >= 0 && yTaken < gridSizeY);
+							if (outsideArena)
+							{
+								spaceOpen = false;
+							}
+
+							if (!outsideArena && gridTaken[xTaken, yTaken])
+							{
+								spaceOpen = false;
+							}
+						}
+
+						if (spaceOpen)
+						{
+							piecePlaced = true;
+
+							GameObject newPiece = Instantiate(pieceTesting.gameObject);
+							newPiece.transform.position = new Vector3(x * gridCellSize, y * gridCellSize * -1) + gridTopLeft.transform.position;
+
+							newPiece.transform.parent = gridTopLeft.transform;
+
+							foreach (Vector2 newTaken in newPiece.GetComponent<LevelPiece>().gridsTakenOffset)
+							{
+								gridTaken[x + (int)newTaken.x, y + (int)newTaken.y] = true;
+							}
+
+							newPiece.GetComponent<LevelPiece>().PlacePiece(gridTopLeft);
+						}
 					}
 				}
-
-				newPiece.transform.parent = rowHolders[colIndex].transform;
-
-				if (newPiece.GetComponent<SawPiece>())
-				{
-					newPiece.GetComponent<LevelPiece>().PlacePiece(rowHolders[colIndex]);
-				}
-				else
-				{
-					newPiece.GetComponent<LevelPiece>().PlacePiece();
-				}
 			}
-		}
-
-		for (int colIndex = 0;
-		     colIndex < rowLocs.Count;
-		     colIndex++)
-		{
-
-			int flipper = colIndex % 2;
-			if (flipper == 0)
-			{
-				flipper = 1;
-			}
-			else
-			{
-				flipper = -1;
-			}
-
-			rowHolders[colIndex].transform.position = rowHolders[colIndex].transform.position +
-			        new Vector3(0, tileWidth * flipper * (piecesGenerated + 2), 0);
 		}
 	}
 }

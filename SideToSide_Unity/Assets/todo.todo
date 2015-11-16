@@ -1,17 +1,36 @@
 
+current plan >> get a vertical slice of the game, then decide if I want to continue with this idea
+
+next step test: 
+ ☐ hearts
+ ☐ slug enemy - leaves a trail of acid behind
+ ☐ bouncer enemy - jumps around making holes in the level
+ ☐ basic melee attack, which freezes for a small amount of time
+ ☐ heart powerup
+ ☐ a unified location to edit powerup costs
 
 
+Enemies : 
+ ☐ slug - leaves a trail of acid behind it
+ ☐ bouncer - bounces around punching holes in the level
 
 
 
 NOTES:
+  > make teeth somewhat random
+  > randomize where the goals are
 
-  movement / powerup ideas - 
+  powerup ideas - 
     > short range teleporter, moves you forward
     > shield, stops one instance of damage
-    > heart
+    > hearts
     > faster movement speed
     > can place down a boost pad
+    > time slow
+    > pistol
+    > shotgun
+    > slowly pull gems toward you
+    > more upgrade options 
 
 
   enemy ideas - 
@@ -21,6 +40,16 @@ NOTES:
 
   level ideas - 
     > boost pad
+    > buttons and doors
+
+
+    can get hearts through pushing enemies to goal
+
+
+
+different powerups are good for different level types
+after each level players choose their next location from a map and then upgrade, so they know what they might need to be successful in the next room.  
+
 
 
 
@@ -33,3 +62,16 @@ the powerups help you get to the other side faster
     will need to be more dangerous to grab them.
     or maybe you get money which you can spend on power ups between levels
 
+
+
+＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+Archive:
+ ✔ change score to total gems collected @done (15-11-13 22:46) @project(Vertical Slice)
+ ✔ add usable powerup and equipping scene @done (15-11-13 22:46) @project(Vertical Slice)
+ ✔ press square in goal to proceed to next level @done (15-11-12 16:11) @project(Vertical Slice)
+ ✔ add different value gems @done (15-11-12 16:11) @project(Vertical Slice)
+ ✔ add buying powerups scene @done (15-11-12 16:11) @project(Vertical Slice)
+ ✔ only get the diamonds you carry to the other side @done (15-11-12 16:00) @project(Vertical Slice)
+ ✔ add an L shaped piece @done (15-11-12 13:54)
+ ✔ intro screne to explain some of the game @done (15-11-12 13:14)
+ ✔ get wasd working @done (15-11-12 11:52)

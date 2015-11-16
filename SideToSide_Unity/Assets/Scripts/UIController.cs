@@ -7,7 +7,7 @@ public class UIController : MonoBehaviour
 
 	public static UIController instance;
 
-	public Text goalCountText;
+	public Text levelGemCountText;
 
 	void Start ()
 	{
@@ -16,6 +16,6 @@ public class UIController : MonoBehaviour
 
 	void Update ()
 	{
-		goalCountText.text = "" + GoalController.instance.touchCount;
+		levelGemCountText.text = "" + GlobalState.instance.gemsHeld + " gems";
 	}
 }

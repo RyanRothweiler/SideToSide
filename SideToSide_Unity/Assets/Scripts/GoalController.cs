@@ -5,7 +5,6 @@ public class GoalController : MonoBehaviour
 {
 
 	public static GoalController instance;
-	public int touchCount;
 
 	public GameObject targetLeft;
 	public GameObject targetRight;
@@ -14,7 +13,6 @@ public class GoalController : MonoBehaviour
 	void Start ()
 	{
 		instance = this;
-		touchCount = 0;
 		currentTarget = targetLeft;
 	}
 
@@ -23,8 +21,7 @@ public class GoalController : MonoBehaviour
 		if (touched == currentTarget)
 		{
 			LevelGenerator.instance.GenerateBoard();
-			
-			touchCount++;
+
 			if (currentTarget == targetLeft)
 			{
 				currentTarget.GetComponent<SpriteRenderer>().color = Color.white;

@@ -11,6 +11,7 @@ public class SawPiece : LevelPiece
 	{
 		foreach (GameObject saw in saws)
 		{
+			saw.GetComponent<Pacer>().activated = true;
 			saw.GetComponent<Pacer>().targetOne.transform.parent = holder.transform;
 			saw.GetComponent<Pacer>().targetTwo.transform.parent = holder.transform;
 		}

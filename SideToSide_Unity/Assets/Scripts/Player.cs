@@ -1,16 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Player : MonoBehaviour
 {
 
 	public static Player instance;
 
+	public bool nextToDoor;
 	public float movSpeed;
+	private float effectiveMoveSpeed;
+
+	public List<Upgrade> givenUpgrades = new List<Upgrade>();
 
 	private Rigidbody2D rigidBody;
-	private Soul soulNextTo;
-	private Soul soulHeld;
 
 	private Vector3 prevInputForce;
 
@@ -23,7 +26,36 @@ public class Player : MonoBehaviour
 
 	void Update ()
 	{
-		Vector3 inputForce = new Vector3(Input.GetAxis("Horizontal") * movSpeed, Input.GetAxis("Vertical") * movSpeed, 0);
+		effectiveMoveSpeed = movSpeed;
+		if (Input.GetButton("boost") || Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+		{
+			effectiveMoveSpeed *= 2.5f;
+		}
+
+
+		Vector3 inputForce = new Vector3(Input.GetAxis("Horizontal") * effectiveMoveSpeed, Input.GetAxis("Vertical") * effectiveMoveSpeed, 0);
+		if (inputForce.x == 0 && inputForce.y == 0)
+		{
+			if (Input.GetButton("w"))
+			{
+				inputForce = inputForce + new Vector3(0, effectiveMoveSpeed, 0);
+			}
+			if (Input.GetButton("s"))
+			{
+				inputForce = inputForce + new Vector3(0, effectiveMoveSpeed * -1, 0);
+			}
+			if (Input.GetButton("a"))
+			{
+				inputForce = inputForce + new Vector3(effectiveMoveSpeed * -1, 0, 0);
+			}
+			if (Input.GetButton("d"))
+			{
+				inputForce = inputForce + new Vector3(effectiveMoveSpeed * 1, 0, 0);
+			}
+		}
+		inputForce = Vector3.ClampMagnitude(inputForce, effectiveMoveSpeed);
+
+
 		if (inputForce.x != 0 || inputForce.y != 0)
 		{
 			prevInputForce = inputForce;
@@ -34,37 +66,14 @@ public class Player : MonoBehaviour
 		float heading = Mathf.Atan2(-prevInputForce.x, prevInputForce.y);
 		this.transform.rotation = Quaternion.Euler(0f, 0f, heading * Mathf.Rad2Deg);
 
-		if (Input.GetButtonDown("x"))
+		if (Input.GetButtonDown("regen"))
 		{
-			if (soulHeld != null)
-			{
-				soulHeld.GetComponent<BoxCollider2D>().isTrigger = false;
-				soulHeld = null;
-			}
-			else
-			{
-				if (soulNextTo != null)
-				{
-					soulHeld = soulNextTo;
-					soulHeld.GetComponent<BoxCollider2D>().isTrigger = true;
-				}
-
-			}
+			LevelGenerator.instance.GenerateBoard();
 		}
 
-		if (soulHeld)
+		if (nextToDoor && Input.GetButtonDown("x"))
 		{
-			Vector3 newPos = new Vector3(this.transform.position.x, this.transform.position.y, 1);
-			soulHeld.transform.position = newPos;
-		}
-	}
-
-	public void OnCollisionExit2D(Collision2D coll)
-	{
-		if (soulNextTo != null &&
-		    soulNextTo.gameObject == coll.gameObject)
-		{
-			soulNextTo = null;
+			Application.LoadLevel("LevelUpScene");
 		}
 	}
 
@@ -72,12 +81,26 @@ public class Player : MonoBehaviour
 	{
 		if (coll.gameObject.GetComponent<CollisionKill>())
 		{
-			Application.LoadLevel("Lose");
+			Application.LoadLevel("LoseScene");
 		}
 
-		if (coll.gameObject.GetComponent<Soul>())
+		if (coll.gameObject.GetComponent<Diamond>())
 		{
-			soulNextTo = coll.gameObject.GetComponent<Soul>();
+			GlobalState.instance.incGemCount(coll.gameObject.GetComponent<Diamond>().diamondValue);
+			Destroy(coll.gameObject);
 		}
+	}
+
+	public void OnTriggerEnter2D(Collider2D coll)
+	{
+		if (coll.gameObject.GetComponent<DoorController>())
+		{
+			nextToDoor = true;
+		}
+	}
+
+	public void OnTriggerExit2D(Collider2D coll)
+	{
+		nextToDoor = false;
 	}
 }

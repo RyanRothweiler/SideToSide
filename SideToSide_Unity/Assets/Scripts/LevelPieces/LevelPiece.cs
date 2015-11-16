@@ -1,24 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class LevelPiece : MonoBehaviour
 {
 
-	public bool isDouble;
-
-	public virtual void PlacePiece()
-	{
-
-	}
+	public List<Vector2> gridsTakenOffset;
 
 	public virtual void PlacePiece(GameObject holder)
-	{
-		
-	}
-
+	{ }
+	
 	public virtual void Remove()
-	{
-
-	}
+	{ }
 
 }
