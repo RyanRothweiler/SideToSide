@@ -7,20 +7,24 @@ public class Player : MonoBehaviour
 
 	public static Player instance;
 
+	public int currentHealth;
 	public bool nextToDoor;
 	public float movSpeed;
-	private float effectiveMoveSpeed;
+	public UseableItem equippedItem;
+	public bool inGoal;
 
 	public List<Upgrade> givenUpgrades = new List<Upgrade>();
 
-	private Rigidbody2D rigidBody;
 
+	private Rigidbody2D rigidBody;
 	private Vector3 prevInputForce;
+	private float effectiveMoveSpeed;
 
 	void Start ()
 	{
 		instance = this;
 
+		currentHealth = 2;
 		rigidBody = this.GetComponent<Rigidbody2D>();
 	}
 
@@ -31,7 +35,6 @@ public class Player : MonoBehaviour
 		{
 			effectiveMoveSpeed *= 2.5f;
 		}
-
 
 		Vector3 inputForce = new Vector3(Input.GetAxis("Horizontal") * effectiveMoveSpeed, Input.GetAxis("Vertical") * effectiveMoveSpeed, 0);
 		if (inputForce.x == 0 && inputForce.y == 0)
@@ -75,25 +78,41 @@ public class Player : MonoBehaviour
 		{
 			Application.LoadLevel("LevelUpScene");
 		}
-	}
 
-	public void OnCollisionEnter2D(Collision2D coll)
-	{
-		if (coll.gameObject.GetComponent<CollisionKill>())
+		if (currentHealth <= 0)
 		{
 			Application.LoadLevel("LoseScene");
 		}
 
-		if (coll.gameObject.GetComponent<Diamond>())
+		if (Input.GetButtonDown("use"))
 		{
-			GlobalState.instance.incGemCount(coll.gameObject.GetComponent<Diamond>().diamondValue);
+			equippedItem.UseItem();
+		}
+	}
+
+	public void OnCollisionEnter2D(Collision2D coll)
+	{
+		if (coll.gameObject.GetComponent<CollisionKillTag>())
+		{
+			currentHealth--;
+			HeartUIController.instance.HealthChanged();
+		}
+
+		if (coll.gameObject.GetComponent<DiamondTag>())
+		{
+			GlobalState.instance.incGemCount(coll.gameObject.GetComponent<DiamondTag>().diamondValue);
 			Destroy(coll.gameObject);
 		}
 	}
 
 	public void OnTriggerEnter2D(Collider2D coll)
 	{
-		if (coll.gameObject.GetComponent<DoorController>())
+		if (coll.gameObject.GetComponent<GoalZone>())
+		{
+			inGoal = true;
+		}
+
+		if (coll.gameObject.GetComponent<DoorTag>())
 		{
 			nextToDoor = true;
 		}
@@ -101,6 +120,14 @@ public class Player : MonoBehaviour
 
 	public void OnTriggerExit2D(Collider2D coll)
 	{
-		nextToDoor = false;
+		if (coll.gameObject.GetComponent<GoalZone>())
+		{
+			inGoal = false;
+		}
+
+		if (coll.gameObject.GetComponent<DoorTag>())
+		{
+			nextToDoor = false;
+		}
 	}
 }

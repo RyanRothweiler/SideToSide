@@ -1,18 +1,39 @@
 
-current plan >> get a vertical slice of the game, then decide if I want to continue with this idea
+current plan >> get a vertical slice of the game >> upload to sites and playtest >> decide if I want to continue with this idea
 
-next step test: 
- ☐ hearts
+ 
+
+ ☐ frozen effect
+ 
+things for vertical slice: 
+ ☐ pistol item using
+ ☐ pistol item powerup
+
+> power ups
+ ☐ teleporter powerup
+ ☐ teleporter using
+
+ ☐ speed boost
+
+ ☐ shotgun using
+ ☐ shotgun powerup
+
+ ☐ pull gems toward you using
+ ☐ pull gems toward you powerup
+
+ ☐ gems worth more
+
+ ☐ more gems in level
+
+ ☐ heart powerup
+
+> enemies
+ ☐ blink the enemy when unfreezing
+
+ ☐ follower enemy - follows you
+ ☐ pacing enemy - an enemy which paces back and forth
  ☐ slug enemy - leaves a trail of acid behind
  ☐ bouncer enemy - jumps around making holes in the level
- ☐ basic melee attack, which freezes for a small amount of time
- ☐ heart powerup
- ☐ a unified location to edit powerup costs
-
-
-Enemies : 
- ☐ slug - leaves a trail of acid behind it
- ☐ bouncer - bounces around punching holes in the level
 
 
 
@@ -66,6 +87,11 @@ the powerups help you get to the other side faster
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✔ basic melee attack, which freezes enemies for a small amount of time @done (15-11-15 19:59) @project(things for vertical slice)
+ ✔ a unified location to edit powerup costs @done (15-11-15 18:43) @project(things for vertical slice)
+ ✔ hearts @done (15-11-15 18:33) @project(things for vertical slice)
+ ✔ reset gems to 0 when lose and start again @done (15-11-15 18:06) @project(things for vertical slice)
+ ✔ clean everything @done (15-11-15 17:59) @project(things for vertical slice)
  ✔ change score to total gems collected @done (15-11-13 22:46) @project(Vertical Slice)
  ✔ add usable powerup and equipping scene @done (15-11-13 22:46) @project(Vertical Slice)
  ✔ press square in goal to proceed to next level @done (15-11-12 16:11) @project(Vertical Slice)

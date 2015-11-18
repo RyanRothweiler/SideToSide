@@ -45,45 +45,42 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\CollisionKill.cs" />
      <Compile Include="Assets\Scripts\Debug\BoxGizmo.cs" />
      <Compile Include="Assets\Scripts\Debug\SphereGizmo.cs" />
-     <Compile Include="Assets\Scripts\Diamond.cs" />
-     <Compile Include="Assets\Scripts\DoorController.cs" />
-     <Compile Include="Assets\Scripts\Follower.cs" />
-     <Compile Include="Assets\Scripts\GlobalState.cs" />
-     <Compile Include="Assets\Scripts\GlobalVars.cs" />
-     <Compile Include="Assets\Scripts\GoalController.cs" />
-     <Compile Include="Assets\Scripts\GoalZone.cs" />
-     <Compile Include="Assets\Scripts\LevelGen\LevelGenerator.cs" />
-     <Compile Include="Assets\Scripts\LevelHolder.cs" />
+     <Compile Include="Assets\Scripts\Global\GlobalState.cs" />
+     <Compile Include="Assets\Scripts\Global\GlobalVars.cs" />
+     <Compile Include="Assets\Scripts\Level Objects\Enemies\Enemy.cs" />
+     <Compile Include="Assets\Scripts\Level Objects\Enemies\Follower.cs" />
+     <Compile Include="Assets\Scripts\Level Objects\Goals\GoalController.cs" />
+     <Compile Include="Assets\Scripts\Level Objects\Goals\GoalZone.cs" />
+     <Compile Include="Assets\Scripts\Level Objects\Pather.cs" />
+     <Compile Include="Assets\Scripts\Level Objects\Spinner.cs" />
+     <Compile Include="Assets\Scripts\Level Objects\Teeth.cs" />
+     <Compile Include="Assets\Scripts\LevelGenerator.cs" />
      <Compile Include="Assets\Scripts\LevelPieces\LevelPiece.cs" />
-     <Compile Include="Assets\Scripts\LevelPieces\PacerPiece.cs" />
+     <Compile Include="Assets\Scripts\LevelPieces\Pacer\Pacer.cs" />
+     <Compile Include="Assets\Scripts\LevelPieces\Pacer\PacerPiece.cs" />
+     <Compile Include="Assets\Scripts\LevelPieces\Pacer\PacerTarget.cs" />
      <Compile Include="Assets\Scripts\LevelPieces\SawPiece.cs" />
-     <Compile Include="Assets\Scripts\Pacer\Pacer.cs" />
-     <Compile Include="Assets\Scripts\Pacer\PacerTarget.cs" />
-     <Compile Include="Assets\Scripts\Pather.cs" />
+     <Compile Include="Assets\Scripts\LoseSceneController.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
-     <Compile Include="Assets\Scripts\RowMover.cs" />
-     <Compile Include="Assets\Scripts\SceneControllers\LoseSceneController.cs" />
-     <Compile Include="Assets\Scripts\Spinner.cs" />
-     <Compile Include="Assets\Scripts\Teeth.cs" />
-     <Compile Include="Assets\Scripts\UIController.cs" />
-     <Compile Include="Assets\Scripts\Upgrade Scene\LevelUpSceneController.cs" />
-     <Compile Include="Assets\Scripts\Upgrade Scene\UpgradeOptionSlot.cs" />
-     <Compile Include="Assets\Scripts\Upgrade Scene\Upgrades\Upgrade.cs" />
-     <Compile Include="Assets\Scripts\XIconController.cs" />
- <Reference Include="UnityEngine.Advertisements">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll</HintPath>
- </Reference>
+     <Compile Include="Assets\Scripts\Tags\CollisionKillTag.cs" />
+     <Compile Include="Assets\Scripts\Tags\DiamondTag.cs" />
+     <Compile Include="Assets\Scripts\Tags\DoorTag.cs" />
+     <Compile Include="Assets\Scripts\UI\HeartUIController.cs" />
+     <Compile Include="Assets\Scripts\UI\UIController.cs" />
+     <Compile Include="Assets\Scripts\UI\XIconController.cs" />
+     <Compile Include="Assets\Scripts\Upgrades\LevelUpSceneController.cs" />
+     <Compile Include="Assets\Scripts\Upgrades\Upgrade.cs" />
+     <Compile Include="Assets\Scripts\Upgrades\UpgradeOptionSlot.cs" />
+     <Compile Include="Assets\Scripts\Useable Items\UseableItem.cs" />
+     <Compile Include="Assets\Scripts\Useable Items\WeaponFreezeCollision.cs" />
+     <Compile Include="Assets\Scripts\Useable Items\Whip.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.Analytics">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
  <Reference Include="Mono.Cecil">
  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/Mono.Cecil.dll</HintPath>
