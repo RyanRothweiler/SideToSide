@@ -3,11 +3,11 @@ current plan >> get a vertical slice of the game >> upload to sites and playtest
 
  
 
- ☐ frozen effect
  
 things for vertical slice: 
  ☐ pistol item using
  ☐ pistol item powerup
+ ☐ blink the enemy when unfreezing
 
 > power ups
  ☐ teleporter powerup
@@ -28,8 +28,6 @@ things for vertical slice:
  ☐ heart powerup
 
 > enemies
- ☐ blink the enemy when unfreezing
-
  ☐ follower enemy - follows you
  ☐ pacing enemy - an enemy which paces back and forth
  ☐ slug enemy - leaves a trail of acid behind
@@ -57,7 +55,8 @@ NOTES:
   enemy ideas - 
     > laser
     > follower
-    > 
+    > bouncer
+    > slug
 
   level ideas - 
     > boost pad
@@ -87,6 +86,7 @@ the powerups help you get to the other side faster
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✔ frozen effect @done (15-11-17 22:32) @project(things for vertical slice)
  ✔ basic melee attack, which freezes enemies for a small amount of time @done (15-11-15 19:59) @project(things for vertical slice)
  ✔ a unified location to edit powerup costs @done (15-11-15 18:43) @project(things for vertical slice)
  ✔ hearts @done (15-11-15 18:33) @project(things for vertical slice)

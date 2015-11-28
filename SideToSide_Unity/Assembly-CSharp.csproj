@@ -51,6 +51,8 @@
      <Compile Include="Assets\Scripts\Global\GlobalVars.cs" />
      <Compile Include="Assets\Scripts\Level Objects\Enemies\Enemy.cs" />
      <Compile Include="Assets\Scripts\Level Objects\Enemies\Follower.cs" />
+     <Compile Include="Assets\Scripts\Level Objects\Enemies\Slug.cs" />
+     <Compile Include="Assets\Scripts\Level Objects\Enemies\SlugDrop.cs" />
      <Compile Include="Assets\Scripts\Level Objects\Goals\GoalController.cs" />
      <Compile Include="Assets\Scripts\Level Objects\Goals\GoalZone.cs" />
      <Compile Include="Assets\Scripts\Level Objects\Pather.cs" />

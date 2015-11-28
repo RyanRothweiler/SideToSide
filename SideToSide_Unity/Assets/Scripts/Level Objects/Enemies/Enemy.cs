@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
+// TODO look at pulling this out, it's only the freezing effect, don't really need to use inheritance
 public class Enemy : MonoBehaviour
 {
 

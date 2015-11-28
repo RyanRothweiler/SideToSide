@@ -7,6 +7,10 @@ public class LevelGenerator : MonoBehaviour
 
 	public static LevelGenerator instance;
 
+	public GameObject levelCenter;
+	public List<GameObject> enemyLibrary = new List<GameObject>();
+	public bool enemiesGenerated = false;
+
 	public GameObject gridTopLeft;
 
 	public float gridCellSize;
@@ -27,7 +31,6 @@ public class LevelGenerator : MonoBehaviour
 				pieceLibrary.Add(child.gameObject);
 			}
 		}
-
 
 		GenerateBoard();
 	}
@@ -94,6 +97,20 @@ public class LevelGenerator : MonoBehaviour
 					}
 				}
 			}
+		}
+
+		if (!enemiesGenerated)
+		{
+			enemiesGenerated = true;
+
+			GameObject enemyUsing = enemyLibrary[Random.Range(0, enemyLibrary.Count)];
+			GameObject newEnemy = Instantiate(enemyUsing) as GameObject;
+
+			float randRange = 6.3f;
+			newEnemy.transform.position = levelCenter.transform.position +
+			                              new Vector3(Random.Range(-randRange, randRange),
+			                                      Random.Range(-randRange, randRange),
+			                                      0);
 		}
 	}
 }
